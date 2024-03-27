@@ -33,25 +33,25 @@ class Tabla:
     
     def pomeri(self, smer):
         match smer:
-            case('up'):
+            case('down'):
                 if self.nula < self.m:
                     return False
                 self.tabla[self.nula], self.tabla[self.nula - self.m] = self.tabla[self.nula - self.m], self.tabla[self.nula]
                 self.nula = self.nula - self.m
                 return True
-            case('left'):
+            case('right'):
                 if self.nula % self.m == 0:
                     return False
                 self.tabla[self.nula], self.tabla[self.nula-1] = self.tabla[self.nula-1], self.tabla[self.nula]
                 self.nula = self.nula - 1
                 return  True
-            case('right'):
+            case('left'):
                 if self.nula % self.m == self.m-1:
                     return False
                 self.tabla[self.nula], self.tabla[self.nula + 1] = self.tabla[self.nula + 1], self.tabla[self.nula]
                 self.nula = self.nula + 1
                 return True
-            case('down'):
+            case('up'):
                 if self.nula >= self.m*(self.n-1):
                     return False
                 self.tabla[self.nula], self.tabla[self.nula + self.m] = self.tabla[self.nula + self.m], self.tabla[self.nula]
