@@ -74,13 +74,15 @@ class Tabla:
                 return True
             case 'give up':
                 print("Give your game a name:\n")
-                name = input() + '.txt'
-                f = open(name, 'w')
+                name = input()
+                f = open('allgames.txt', 'a')
+                f.write('%s ' %name)
+                f.write('%d ' %self._n)
+                f.write('%d ' %self._m)
                 for items in self._tabla:
                     f.write('%s,' %items)
+                f.write('\n')
                 f.close()
-                f = open('allgames.txt', 'a')
-                f.write('\n'+ name)
                 return False
             case _:
                 return False
@@ -129,19 +131,23 @@ class Igra:
             f = open('allgames.txt', 'r')
             fread = f.read()
             games = list(fread.split('\n'))
+            names = list(fread.split('\n'))
             for i in range (len(games)-1):
-                games[i]=games[i][0:-4]
-                print(games[i])
+                names[i], sep, tail = games[i].partition(' ')
+                #[i] = values[i][0:-1]              
+                print(names[i])
             f.close()
-            dec = input()
-            if dec in games:
-                indx = games.index(dec)
-                f = open(games[indx] + ".txt", "r")
-                fread = f.read()
-                oldGame = list(fread.split(','))
-                oldGame = oldGame[0:-1]
-                oldGame = list(map(int, oldGame))
-                self.setTabla(oldGame)
+            decision = input()
+            if decision in names:
+                indx = names.index(decision)
+                names[indx], sep, tail = games[indx].partition(' ')
+                n, sep, tail = tail.partition(' ')
+                m, sep, tail = tail.partition(' ')
+                n = int(n)
+                m = int(m)
+                values = list(tail.split(','))
+                values = values[0:-1]
+                values = list(map(int, values))
             else:
                 print ("Please enter a valid game name.")
                 self.pocniIgru()
