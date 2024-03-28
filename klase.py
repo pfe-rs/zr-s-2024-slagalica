@@ -82,20 +82,31 @@ class Igra:
         m = self._tabla.getM()
         tab = self._tabla.getTabla()
 
+        max_width = len(str(max(tab)))
+        lines = (2+max_width) * '-'
+
+
         for i in range(n):
             for j in range(m):
-                print("+---", end="")
+                print("+", end="")
+                print(lines, end="")
             print("+")
             for j in range(m):
                 if tab[i*m + j] == 0:
-                    val = ' '
+                    val = ' ' * max_width
                 else:
-                    val = str(tab[i*m + j])
-                print("| {} ".format(val), end="")
+                    val = str(tab[i*m + j]).rjust(max_width)
+                print("|", end="")
+                print(" {} ".format(val), end="")
             print("|")
         for j in range(m):
-            print("+---", end="")
+            print("+", end="")
+            print(lines, end="")
         print("+")
+
+
+
+
     
     def setTabla(self, list):
         self._tabla.setTabla(list)
