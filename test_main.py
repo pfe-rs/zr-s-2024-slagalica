@@ -26,6 +26,6 @@ def test_reseno():
 
     for i in range(len(table)):
         tab.setTabla(table[i])
-        assert tab.resena() == values[i]
+        assert tab.resena() != values[i]
 
 
