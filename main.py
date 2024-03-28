@@ -12,6 +12,9 @@ class Tabla:
         check.append(0)
         return check == self._tabla
 
+    def setTabla(self, lista):
+        self._tabla = lista
+
     @staticmethod
     def resivo(tab):
         numOfInversions = 0
@@ -70,25 +73,45 @@ class Tabla:
                 return False
 
 class Igra:
-    @staticmethod
-    def crtajTablu(tabla:Tabla):
-        n = tabla._n
-        m = tabla._m
-        tab = tabla.getTabla()
+    def __init__(self, tabla:Tabla):
+        self._tabla = tabla
+
+    def crtajTablu(self):
+        n = self._tabla.getN()
+        m = self._tabla.getM()
+        tab = self._tabla.getTabla()
+
         for i in range(n):
             for j in range(m):
                 print("+---", end="")
             print("+")
             for j in range(m):
                 if tab[i*m + j] == 0:
-                    val = 0
+                    val = ' '
                 else:
-                    val = tab[i*m + j]
+                    val = str(tab[i*m + j])
                 print("| {} ".format(val), end="")
             print("|")
         for j in range(m):
             print("+---", end="")
         print("+")
+    
+    def setTabla(self, list):
+        self._tabla.setTabla(list)
+
+    def pocniIgru(self):
+        print("Use up(u), left(l), right(r) or down(d) to move a square int the empty slot.")
+        playing = True
+        while playing:
+            self.crtajTablu()
+            a = input()
+            if not self._tabla.pomeri(a):
+                print("Invalid input, try: up(u), left(l), right(r) or down(d). And don't go out of the board.")
+            
+            if self._tabla.resena():
+                self.crtajTablu()
+                print("Congrats you won!!!")
+                break
 
 tab = Tabla(3,3)
 
@@ -98,15 +121,5 @@ print(Tabla.resivo([1,2,3,4,5,8,6,7]))
 print(Tabla.resivo([1,2,3,4,5,6,8,7]))
 '''
 
-print("Use up(u), left(l), right(r) or down(d) to move a square int the empty slot.")
-playing = True
-while playing:
-    Igra.crtajTablu(tab)
-    a = input()
-    if not tab.pomeri(a):
-        print("Invalid input, try: up(u), left(l), right(r) or down(d). And don't go out of the board.")
-    
-    if tab.resena():
-        Igra.crtajTablu(tab)
-        print("Congrats you won!!!")
-        break
+igra = Igra(tab)
+igra.pocniIgru()
