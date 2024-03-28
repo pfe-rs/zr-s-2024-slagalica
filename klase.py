@@ -12,8 +12,10 @@ class Tabla:
         check.append(0)
         return check == self._tabla
 
-    def setTabla(self, lista):
+    def setTabla(self, lista, n, m):
         self._tabla = lista
+        self._n = n
+        self._m = m
         self._nula = self._tabla.index(0)
 
     @staticmethod
@@ -84,8 +86,10 @@ class Tabla:
                 return False
 
 class Igra:
-    def __init__(self, tabla:Tabla):
-        self._tabla = tabla
+    
+    def __init__(self):
+        self._tabla = Tabla(3,3)
+    
 
     def crtajTablu(self):
         n = self._tabla.getN()
@@ -114,12 +118,8 @@ class Igra:
             print(lines, end="")
         print("+")
 
-
-
-
-    
-    def setTabla(self, list):
-        self._tabla.setTabla(list)
+    def setTabla(self, list, n, m):
+        self._tabla.setTabla(list, n, m)
 
     def pocniIgru(self):
         print ("To start a new game enter new, to choose an old game to continue enter old.")
@@ -145,6 +145,10 @@ class Igra:
             else:
                 print ("Please enter a valid game name.")
                 self.pocniIgru()
+        else:
+            n, m = map(int, input("Enter dimensions separated by a space: ").split())
+            tab = Tabla(n,m).getTabla()
+            self.setTabla(tab, n, m)
 
         print("Use up(u), left(l), right(r) or down(d) to move a square intogive  the empty slot.\nTo give up and save your game, enter give up.")
         playing = True
