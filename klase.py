@@ -44,6 +44,8 @@ class Tabla:
             if Tabla.resivo(tab):
                 tab.append(0)
                 self._tabla = tab
+                if self.reseno():
+                    continue
                 return
     
     def pomeri(self, smer):
