@@ -1,7 +1,9 @@
 import random
 from klase import *
 
-tab = Tabla(3,3)
+n, m = map(int, input("Enter dimensions separated by a space: ").split())
+
+tab = Tabla(n,m)
 
 ''' World class testing
 print(Tabla.resivo([1,2,3,4,5,6,7,8]))
