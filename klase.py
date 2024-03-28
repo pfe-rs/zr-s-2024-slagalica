@@ -14,6 +14,7 @@ class Tabla:
 
     def setTabla(self, lista):
         self._tabla = lista
+        self._nula = self._tabla.index(0)
 
     @staticmethod
     def resivo(tab):
