@@ -70,6 +70,16 @@ class Tabla:
                 self._tabla[self._nula], self._tabla[self._nula + self._m] = self._tabla[self._nula + self._m], self._tabla[self._nula]
                 self._nula = self._nula + self._m
                 return True
+            case 'give up':
+                print("Give your game a name:\n")
+                name = input() + '.txt'
+                f = open(name, 'w')
+                for items in self._tabla:
+                    f.write('%s,' %items)
+                f.close()
+                f = open('allgames.txt', 'a')
+                f.write('\n'+ name)
+                return False
             case _:
                 return False
 
@@ -112,12 +122,39 @@ class Igra:
         self._tabla.setTabla(list)
 
     def pocniIgru(self):
-        print("Use up(u), left(l), right(r) or down(d) to move a square int the empty slot.")
+        print ("To start a new game enter new, to choose an old game to continue enter old.")
+        choice = input()
+        if choice == 'old':
+            print("Enter the name of the game you want to play:")
+            f = open('allgames.txt', 'r')
+            fread = f.read()
+            games = list(fread.split('\n'))
+            for i in range (len(games)-1):
+                games[i]=games[i][0:-4]
+                print(games[i])
+            f.close()
+            dec = input()
+            if dec in games:
+                indx = games.index(dec)
+                f = open(games[indx] + ".txt", "r")
+                fread = f.read()
+                oldGame = list(fread.split(','))
+                oldGame = oldGame[0:-1]
+                oldGame = list(map(int, oldGame))
+                self.setTabla(oldGame)
+            else:
+                print ("Please enter a valid game name.")
+                self.pocniIgru()
+
+        print("Use up(u), left(l), right(r) or down(d) to move a square intogive  the empty slot.\nTo give up and save your game, enter give up.")
         playing = True
         while playing:
             self.crtajTablu()
             a = input()
             if not self._tabla.pomeri(a):
+                if (a == 'give up'):
+                    print("Game stopped, better luck next time, loser.")
+                    break
                 print("Invalid input, try: up(u), left(l), right(r) or down(d). And don't go out of the board.")
             
             if self._tabla.resena():
