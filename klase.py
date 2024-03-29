@@ -165,3 +165,21 @@ class Igra:
                 self.crtajTablu()
                 print("Congrats you won!!!")
                 break
+
+    def pocniIgruTestiranje(self, tab:Tabla):
+        self._tabla = tab
+        print("Use up(u), left(l), right(r) or down(d) to move a square intogive  the empty slot.\nTo give up and save your game, enter give up.")
+        playing = True
+        while playing:
+            self.crtajTablu()
+            a = input()
+            if not self._tabla.pomeri(a):
+                if (a == 'give up'):
+                    print("Game stopped, better luck next time, loser.")
+                    break
+                print("Invalid input, try: up(u), left(l), right(r) or down(d). And don't go out of the board.")
+            
+            if self._tabla.resena():
+                self.crtajTablu()
+                print("Congrats you won!!!")
+                break
