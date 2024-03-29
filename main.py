@@ -9,5 +9,7 @@ print(Tabla.resivo([1,2,3,4,5,8,6,7]))
 print(Tabla.resivo([1,2,3,4,5,6,8,7]))
 '''
 
+
+
 igra = Igra()
-igra.pocniIgru()
+igra.pocniIgru(input)

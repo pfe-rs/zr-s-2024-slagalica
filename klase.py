@@ -125,9 +125,9 @@ class Igra:
     def setTabla(self, list, n, m):
         self._tabla.setTabla(list, n, m)
 
-    def pocniIgru(self):
+    def pocniIgru(self, input_fn):
         print ("To start a new game enter new, to choose an old game to continue enter old.")
-        choice = input()
+        choice = input_fn()
         if choice == 'old':
             print("Enter the name of the game you want to play:")
             f = open('allgames.txt', 'r')
@@ -139,7 +139,7 @@ class Igra:
                 #[i] = values[i][0:-1]              
                 print(names[i])
             f.close()
-            decision = input()
+            decision = input_fn()
             if decision in names:
                 indx = names.index(decision)
                 names[indx], sep, tail = games[indx].partition(' ')
@@ -154,17 +154,18 @@ class Igra:
             else:
                 print ("Please enter a valid game name.")
                 self.pocniIgru()
-        elif choice == 'new':
-            n, m = map(int, input("Enter dimensions separated by a space: ").split())
+        if choice == 'new':
+            n, m = map(int, input_fn("Enter dimensions separated by a space: ").split())
             tab = Tabla(n,m).getTabla()
             self.setTabla(tab, n, m)
-        else: self.pocniIgru()
+        if choice != 'new' and choice != 'old': 
+            self.pocniIgru()
 
         print("Use up(u), left(l), right(r) or down(d) to move a square intogive  the empty slot.\nTo give up and save your game, enter give up.")
         playing = True
         while playing:
             self.crtajTablu()
-            a = input()
+            a = input_fn()
             if not self._tabla.pomeri(a):
                 if (a == 'give up'):
                     print("Game stopped, better luck next time, loser.")
