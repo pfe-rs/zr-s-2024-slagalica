@@ -150,13 +150,15 @@ class Igra:
                 values = list(tail.split(','))
                 values = values[0:-1]
                 values = list(map(int, values))
+                self.setTabla(values, n, m)
             else:
                 print ("Please enter a valid game name.")
                 self.pocniIgru()
-        else:
+        elif choice == 'new':
             n, m = map(int, input("Enter dimensions separated by a space: ").split())
             tab = Tabla(n,m).getTabla()
             self.setTabla(tab, n, m)
+        else: self.pocniIgru()
 
         print("Use up(u), left(l), right(r) or down(d) to move a square intogive  the empty slot.\nTo give up and save your game, enter give up.")
         playing = True
