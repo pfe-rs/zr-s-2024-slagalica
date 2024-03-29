@@ -32,7 +32,8 @@ class Solver:
         self._startPos = start
 
     @staticmethod
-    def solve(start:Cvor):
+    def solve(startTab:Tabla):
+        start = Cvor(startTab)
         temp = [i for i in range(1, start._val.getM()*start._val.getN())]
         temp.append(0)
         goal = tuple(temp)
@@ -45,8 +46,8 @@ class Solver:
         while(len(q)):
             current = q.pop(0)
             if tuple(current.getTabla()) == goal:
-                print(path[goal])
-                return
+                return path[goal]
+                
             for move in current.nextMoves():
                 if visited[tuple(move[1].getTabla())] > 0:
                     continue
