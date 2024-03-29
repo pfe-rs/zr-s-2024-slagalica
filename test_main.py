@@ -39,5 +39,3 @@ def test_reseno():
     for i in range(len(table)):
         tab.setTabla(table[i], dimN[i], dimM[i])
         assert tab.resena() == values[i]
-
-
