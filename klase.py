@@ -44,10 +44,10 @@ class Tabla:
             if Tabla.resivo(tab):
                 tab.append(0)
                 self._tabla = tab
-                if self.reseno():
+                if self.resena():
                     continue
                 return
-    
+            
     def pomeri(self, smer):
         match smer:
             case 'down' | 'd':
