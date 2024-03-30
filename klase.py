@@ -50,7 +50,7 @@ class Tabla:
                     continue
                 return
             
-    def pomeri(self, smer):
+    def pomeri(self, smer, input_fn):
         match smer:
             case 'down' | 'd':
                 if self._nula < self._m:
@@ -77,8 +77,8 @@ class Tabla:
                 self._nula = self._nula + self._m
                 return True
             case 'give up':
-                print("Give your game a name:\n")
-                name = input()
+                print("Give your game a name:")
+                name = input_fn()
                 name = (name.translate({ord(i): None for i in ' '}))
                 f = open('allgames.txt', 'a')
                 f.write('%s ' %name)
@@ -114,7 +114,7 @@ class Cvor:
         for move in ['u', 'r', 'l', 'd']:
             tab = Tabla(3,3)
             tab.setTabla(copy.copy(self._val.getTabla()), self.getN(), self.getM())
-            if tab.pomeri(move):
+            if tab.pomeri(move, input_fn):
                 moves.append((move, Cvor(tab)))
         return moves
 
@@ -208,14 +208,16 @@ class Igra:
                 self.setTabla(values, n, m)
             else:
                 print ("Please enter a valid game name.")
-                self.pocniIgru(input)
+                self.pocniIgru(input_fn)
                 return
         if choice == 'new':
-            n, m = map(int, input_fn("Enter dimensions separated by a space: ").split())
+            print("Enter dimensions separated by a space: ")
+            dimensions = input_fn()
+            n, m = map(int, dimensions.split(' '))
             tab = Tabla(n,m).getTabla()
             self.setTabla(tab, n, m)
         if choice != 'new' and choice != 'old': 
-            self.pocniIgru(input) 
+            self.pocniIgru(input_fn) 
             return
 
         print("Use up(u), left(l), right(r) or down(d) to move a square intogive  the empty slot.\nTo give up and save your game, enter give up.")
@@ -223,7 +225,7 @@ class Igra:
         while playing:
             self.crtajTablu()
             a = input_fn()
-            if not self._tabla.pomeri(a):
+            if not self._tabla.pomeri(a, input_fn):
                 if (a == 'give up'):
                     print("Game stopped, better luck next time, loser.")
                     break
@@ -240,8 +242,8 @@ class Igra:
         playing = True
         while playing:
             self.crtajTablu()
-            a = input()
-            if not self._tabla.pomeri(a):
+            a = input_fn()
+            if not self._tabla.pomeri(a, input_fn):
                 if (a == 'give up'):
                     print("Game stopped, better luck next time, loser.")
                     break
