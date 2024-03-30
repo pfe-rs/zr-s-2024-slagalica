@@ -90,7 +90,7 @@ class Tabla:
                 f.close()
                 return False
             case 'solve':
-                moves = Igra.solve(self)
+                moves = Igra.solve(self, input_fn)
                 print(moves)
                 return True
             case _:
@@ -109,7 +109,7 @@ class Cvor:
     def getM(self):
         return self._val.getM()
 
-    def nextMoves(self):
+    def nextMoves(self, input_fn):
         moves = []
         for move in ['u', 'r', 'l', 'd']:
             tab = Tabla(3,3)
@@ -124,7 +124,7 @@ class Igra:
         self._tabla = Tabla(3,3)
     
     @staticmethod
-    def solve(startTab:Tabla):
+    def solve(startTab:Tabla, input_fn):
         start = Cvor(startTab)
         temp = [i for i in range(1, start._val.getM()*start._val.getN())]
         temp.append(0)
@@ -140,7 +140,7 @@ class Igra:
             if tuple(current.getTabla()) == goal:
                 return path[goal]
                 
-            for move in current.nextMoves():
+            for move in current.nextMoves(input_fn):
                 if visited[tuple(move[1].getTabla())] > 0:
                     continue
                 path[tuple(move[1].getTabla())] = []
@@ -220,24 +220,6 @@ class Igra:
             self.pocniIgru(input_fn) 
             return
 
-        print("Use up(u), left(l), right(r) or down(d) to move a square intogive  the empty slot.\nTo give up and save your game, enter give up.")
-        playing = True
-        while playing:
-            self.crtajTablu()
-            a = input_fn()
-            if not self._tabla.pomeri(a, input_fn):
-                if (a == 'give up'):
-                    print("Game stopped, better luck next time, loser.")
-                    break
-                print("Invalid input, try: up(u), left(l), right(r) or down(d). And don't go out of the board.")
-            
-            if self._tabla.resena():
-                self.crtajTablu()
-                print("Congrats you won!!!")
-                break
-
-    def pocniIgruTestiranje(self, tab:Tabla):
-        self._tabla = tab
         print("Use up(u), left(l), right(r) or down(d) to move a square intogive  the empty slot.\nTo give up and save your game, enter give up.")
         playing = True
         while playing:
