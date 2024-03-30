@@ -79,6 +79,7 @@ class Tabla:
             case 'give up':
                 print("Give your game a name:\n")
                 name = input()
+                name = (name.translate({ord(i): None for i in ' '}))
                 f = open('allgames.txt', 'a')
                 f.write('%s ' %name)
                 f.write('%d ' %self._n)
@@ -207,13 +208,14 @@ class Igra:
                 self.setTabla(values, n, m)
             else:
                 print ("Please enter a valid game name.")
-                self.pocniIgru()
+                self.pocniIgru(input)
         if choice == 'new':
             n, m = map(int, input_fn("Enter dimensions separated by a space: ").split())
             tab = Tabla(n,m).getTabla()
             self.setTabla(tab, n, m)
         if choice != 'new' and choice != 'old': 
-            self.pocniIgru()
+            self.pocniIgru(input) 
+            return
 
         print("Use up(u), left(l), right(r) or down(d) to move a square intogive  the empty slot.\nTo give up and save your game, enter give up.")
         playing = True
