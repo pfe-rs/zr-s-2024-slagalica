@@ -209,6 +209,7 @@ class Igra:
             else:
                 print ("Please enter a valid game name.")
                 self.pocniIgru(input)
+                return
         if choice == 'new':
             n, m = map(int, input_fn("Enter dimensions separated by a space: ").split())
             tab = Tabla(n,m).getTabla()
